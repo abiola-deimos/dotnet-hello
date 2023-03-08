@@ -19,9 +19,14 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/", () =>
+app.MapGet("/", (ILoggerFactory loggerFactory) =>
 {
     var now = DateTime.UtcNow;
+
+    var logger = loggerFactory.CreateLogger("Root /");
+    logger.LogInformation($"{now} - Rendering homepage /");
+
+
     return Results.Text(@$"
     <html>
     <head>
